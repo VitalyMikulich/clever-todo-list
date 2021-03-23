@@ -1,0 +1,13 @@
+.RegisterContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.RegisterContainer form {
+  display: flex;
+  flex-direction: column;
+  justify-content: 'center';
+  margin: 5px auto;
+  width: 60%;
+}

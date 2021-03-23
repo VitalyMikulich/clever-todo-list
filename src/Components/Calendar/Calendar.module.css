@@ -1,0 +1,5 @@
+.daysContainer {
+  overflow-x: scroll;
+  display: flex;
+  padding: 5px 0;
+}

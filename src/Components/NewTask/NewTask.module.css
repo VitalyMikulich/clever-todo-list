@@ -1,0 +1,17 @@
+.newTaskContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.newTaskContainer form {
+  display: flex;
+  flex-direction: column;
+  justify-content: 'center';
+  margin: 5px auto;
+  width: 60%;
+}
+
+.newTaskContainer label {
+  text-align: left;
+}
