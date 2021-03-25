@@ -1,34 +1,34 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import styles from './Authorization.module.css'
 import firebaseApp from '../../firebase'
-
-const signin = (event, email, password) => {
-  event.preventDefault();
-  return new Promise((resolve, reject) => {
-    // firebaseApp.auth().onAuthStateChanged((user) => {
-    //   if(user) {
-    //     console.log(user)
-    //     resolve()
-    //   } else {
-    //     reject(new Error(`user doesn't exit` ))
-    //   }
-    // })
-    firebaseApp.auth().signInWithEmailAndPassword(email, password)
-      .then(user => {
-        console.log(user)
-        resolve()
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
+import { setUserId } from '../../store/actions'
+// import PropTypes from 'prop-types'
+import { connect, useStore } from 'react-redux'
 
 const Authorization = () => {
+  const store = useStore()
+  console.log(store.getState())
   const [emailInput, setEmailInput] = useState('');
-  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('')
+  const [isOnline, setIsOnline] = useState(false)
+
+  const signin = (event, email, password) => {
+    event.preventDefault();
+    return new Promise((resolve, reject) => {
+      firebaseApp.auth().signInWithEmailAndPassword(email, password)
+        .then(userCreds => {
+          console.log(userCreds)
+          store.dispatch(setUserId(userCreds.user.uid))
+          setIsOnline(true)
+          resolve()
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
 
   return (
     <div className={ styles.AuthorizationContainer }>
@@ -55,8 +55,13 @@ const Authorization = () => {
         </button>
       </form>
       <Link to="/register">Register</Link>
+      { isOnline ? <Redirect to='/calendar' /> : null }
     </div>
   )
 }
 
-export default Authorization
+// Authorization.propTypes = {
+  // store: PropTypes.object
+// }
+
+export default connect()(Authorization)

@@ -1,21 +1,23 @@
 import { Button } from '@material-ui/core'
 import React, {  useState } from 'react'
+// import { useStore } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Calendar from '../Calendar/Calendar'
-import TaskContainer from '../TaskContainer/TaskContainer'
+import Header from '../Header/Header'
+import TodaysTasks from '../TodaysTasks/TodaysTasks'
 import styles from './MainPage.module.css'
 
 const MainPage = () => {
-  const [currentDate, setCurrentDate] = useState('')
+  // const store = useStore()
+  // const { date } = store.getState()
+  const [currentDate, setCurrentDate] = useState(null)
 
   return (
     <div className={ styles.mainPageContaier }>
-      <header>
-        <div>Tassker</div>
-      </header>
-      <Calendar setCurrentDate={ (date) => setCurrentDate(date) } currentDate={ currentDate } />
-      <TaskContainer currentDate={ currentDate } />
-      <Link className={ styles.link } to='/'><Button variant="contained">Add a New Task</Button></Link>
+      <Header />
+      <Calendar setCurrentDate={ (date) => setCurrentDate(date) } />
+      <TodaysTasks currentDate={ currentDate } />
+      <Link className={ styles.link } to='/newtask'><Button variant="contained">Add a New Task</Button></Link>
     </div>
   )
 }

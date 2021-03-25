@@ -1,23 +1,30 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import styles from './Register.module.css'
 import firebaseApp from '../../firebase';
-
-const register = (event, email, password) => {
-  event.preventDefault();
-  return new Promise((resolve, reject) => {
-    firebaseApp.auth().createUserWithEmailAndPassword(email, password)
-      .then(user => { 
-        console.log(user)
-        resolve()
-      })
-      .catch(error => reject(error))
-  })
-}
+import { setUserId } from '../../store/actions'
+import { useStore } from 'react-redux';
 
 const Register = () => {
-  const [emailInput, setEmailInput] = useState('');
-  const [passwordInput, setPasswordInput] = useState('');
+  const store = useStore()
+  console.log(store.getState())
+  const [emailInput, setEmailInput] = useState('')
+  const [passwordInput, setPasswordInput] = useState('')
+  const [isOnline, setIsOnline] = useState(false)
+
+  const register = (event, email, password) => {
+    event.preventDefault();
+    return new Promise((resolve, reject) => {
+      firebaseApp.auth().createUserWithEmailAndPassword(email, password)
+        .then(userCreds => {
+          console.log(userCreds)
+          store.dispatch(setUserId(userCreds.user.uid))
+          setIsOnline(true)
+          resolve()
+        })
+        .catch(error => reject(error))
+    })
+  }
 
   return (
     <div className={ styles.RegisterContainer }>
@@ -44,6 +51,7 @@ const Register = () => {
         </button>
       </form>
       <Link to="/signin">Sign In</Link>
+      { isOnline ? <Redirect to='/calendar' /> : null }
     </div>
   )
 }

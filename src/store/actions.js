@@ -1,3 +1,13 @@
-const REGISTER_USER = 'REGISTER_USER'
+import { SET_USER_ID, SET_CURRENT_DATE } from './actionTypes'
 
-export default REGISTER_USER
+const setUserId = id => ({
+  type: SET_USER_ID,
+  id
+})
+
+const setDate = date => ({
+  type: SET_CURRENT_DATE,
+  date
+})
+
+export { setUserId, setDate }

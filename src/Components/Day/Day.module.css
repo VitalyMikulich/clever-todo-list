@@ -5,3 +5,29 @@
   border: 1px solid black;
   cursor: pointer;
 }
+
+.active {
+  background-color: black;
+  color: white;
+}
+
+.toDosContainer {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+.toDo {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
+.doneToDo {
+  background-color: orangered;
+}
+
+.notDoneToDo {
+  background-color: orange;
+}
