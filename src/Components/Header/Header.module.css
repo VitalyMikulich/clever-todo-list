@@ -1,6 +1,10 @@
-header {
+header.mainPage {
   display: flex;
   justify-content: space-between;
-  width: 90%;
-  margin: auto;
+  width: 97%;
+  margin: 10px auto 30px;
+}
+
+header>h2 {
+  margin: 0;
 }

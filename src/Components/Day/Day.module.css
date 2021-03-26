@@ -1,14 +1,26 @@
 .dayContainer {
   margin: 0 10px;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 18px;
   border: 1px solid black;
   cursor: pointer;
+  transition: .3s;
+  user-select: none;
+  width: 43px;
+}
+
+.dayContainer:hover {
+  background-color: #f2f2ff;
+  transition: .3s;
 }
 
 .active {
   background-color: black;
   color: white;
+}
+
+.active:hover {
+  background-color: black;
 }
 
 .toDosContainer {
@@ -21,7 +33,7 @@
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  margin: 0 5px;
+  margin: 0 2px;
 }
 
 .doneToDo {

@@ -3,77 +3,88 @@ import React, { useState } from 'react'
 import firebaseApp from '../../firebase'
 import { Link, Redirect } from 'react-router-dom'
 import { useStore } from 'react-redux'
+import { Button, TextField } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
+import { ArrowBackIos } from '@material-ui/icons'
 
-
+const useStyles = makeStyles({
+  textField: {
+    marginBottom: '10px',
+  },
+  button: {
+    alignSelf: 'center',
+    width: '30%',
+  },
+})
 
 const NewTask = () => {
   const store = useStore()
+  const classes = useStyles()
   const { userID, currentDate } = store.getState()
-  console.log(userID, currentDate)
   const [inputTitle, setInputTitle] = useState('')
   const [inputDescription, setDescription] = useState('')
   const [redirect, setRedirect] = useState(false)
 
   const saveTask = (event, date, title, description) => {
     event.preventDefault()
-    // return new Promise((resolve, reject) => {
-    //   firebaseApp.database().ref(userID).child(date).push({
-    //     title: title,
-    //     description: description,
-    //     done: false
-    //   })
-    //     .then(entry => {
-    //       console.log(entry)
-    //       setRedirect(true)
-    //       resolve()
-    //     })
-    //     .catch(error => reject(error))
-    // })
     return new Promise((resolve, reject) => {
-      const key = firebaseApp.database().ref(`${userID}/${date}`).push().key
-      firebaseApp.database()
-                 .ref(`${userID}/${date}/${key}`)
-                 .set({
-                   done: false,
-                   title,
-                   description,
-                   key,
-                   date
-                 })
-                 .then(entry => {
-                   console.log(entry)
-                   setRedirect(true)
-                   resolve()
-                 })
-                 .catch(error => reject(error))
+      const key = firebaseApp.database().ref(`${ userID }/${ date }`).push().key
+      firebaseApp
+        .database()
+        .ref(`${ userID }/${ date }/${ key }`)
+        .set({
+          done: false,
+          title,
+          description,
+          key,
+          date,
+        })
+        .then(() => {
+          setRedirect(true)
+          resolve()
+        })
+        .catch((error) => reject(error))
     })
   }
-  
+
   return (
-    <div className={ styles.newTaskContainer }>
-      <Link to='/calendar'>
-        Back
-      </Link>
+    <div className={styles.newTaskContainer}>
+      <header>
+        <Link className={styles.link} to="/calendar">
+          <Button startIcon={ <ArrowBackIos /> }>Back</Button>
+        </Link>
+      </header>
       <form>
-        <input
-          value={ inputTitle }
-          type='text'
-          placeholder='title'
-          onChange={ (event) => setInputTitle(event.target.value) }
+        <TextField
+          value={inputTitle}
+          classes={{ root: classes.textField }}
+          type="text"
+          label="Title"
+          variant="outlined"
+          onChange={(event) => setInputTitle(event.target.value)}
         />
-        <label htmlFor='description'>Description</label>
-        <textarea
-          id='description'
-          value={ inputDescription }
-          onChange={ (event) => setDescription(event.target.value) }
+        <TextField
+          multiline
+          label="Description"
+          variant="outlined"
+          rows={10}
+          rowsMax={50}
+          value={inputDescription}
+          classes={{ root: classes.textField }}
+          onChange={(event) => setDescription(event.target.value)}
         />
-        <button
+        <Button
           type="submit"
-          onClick={ (event) => saveTask(event, currentDate, inputTitle, inputDescription) }
+          classes={{ root: classes.button }}
+          color="primary"
+          variant="contained"
+          onClick={(event) =>
+            saveTask(event, currentDate, inputTitle, inputDescription)
+          }
         >
           Save
-        </button>
-        { redirect ? <Redirect to='/calendar' /> : null }
+        </Button>
+        { redirect ? <Redirect to="/calendar" /> : null }
       </form>
     </div>
   )

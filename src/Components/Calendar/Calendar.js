@@ -12,14 +12,14 @@ const daysConstructor = (todaysDate) => {
   for (let i = 0; i < 31; i++) {
     result.push(moment(date.add(1, 'd')))
   }
-  return result;
+  return result
 }
 
-const Calendar = ({ setCurrentDate, currentDate }) => {
+const Calendar = ({ setCurrentDate }) => {
   const store = useStore()
   const todaysDate = moment()
   const dates = daysConstructor(todaysDate)
-  
+
   useEffect(() => {
     store.dispatch(setDate(todaysDate.format('YYYY-MM-DD')))
     setCurrentDate(todaysDate)
@@ -27,28 +27,21 @@ const Calendar = ({ setCurrentDate, currentDate }) => {
 
   return (
     <div className={ styles.daysContainer }>
-      { dates.map((date, index) => {
-        let activeClass = false
-        if (currentDate) {
-          console.log(date.format('YYYY-MM-DD') === currentDate.format('YYYY-MM-DD'))
-          if (date.format('YYYY-MM-DD') === currentDate.format('YYYY-MM-DD')) {
-            activeClass = true
-          }
-        }
-        return <Day
-          key={`key${index}`}
-          date={ date }
-          setCurrentDate={(date) => setCurrentDate(date) }
-          activeClass={ activeClass }
-        />
-      }) }
+      {dates.map((date, index) => {
+        return (
+          <Day
+            key={ `key${index}` }
+            date={ date }
+            setCurrentDate={ (date) => setCurrentDate(date) }
+          />
+        )
+      })}
     </div>
   )
 }
 
 Calendar.propTypes = {
-  currentDate: PropTypes.object,
-  setCurrentDate: PropTypes.func
+  setCurrentDate: PropTypes.func,
 }
 
 export default Calendar

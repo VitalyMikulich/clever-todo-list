@@ -3,3 +3,16 @@
   display: flex;
   padding: 5px 0;
 }
+
+/* .daysContainer::-webkit-scrollbar {
+  height: 10px;
+}
+
+.daysContainer::-webkit-scrollbar-track {
+  background: white;
+}
+
+.daysContainer::-webkit-scrollbar-thumb {
+  background-color: rgb(150, 150, 150);
+  border-radius: 20px;
+} */

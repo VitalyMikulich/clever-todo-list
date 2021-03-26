@@ -1,0 +1,13 @@
+.TaskContainer {
+  width: 90%;
+  margin: auto;
+}
+
+.TaskContainer>header {
+  text-align: left;
+}
+
+.link {
+  color: black;
+}
+

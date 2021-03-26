@@ -1,13 +1,13 @@
 import { SET_USER_ID, SET_CURRENT_DATE } from './actionTypes'
 
-const setUserId = id => ({
+const setUserId = (id) => ({
   type: SET_USER_ID,
-  id
+  id,
 })
 
-const setDate = date => ({
+const setDate = (date) => ({
   type: SET_CURRENT_DATE,
-  date
+  date,
 })
 
 export { setUserId, setDate }

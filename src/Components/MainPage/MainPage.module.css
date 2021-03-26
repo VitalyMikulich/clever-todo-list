@@ -1,3 +1,10 @@
+.mainPageContaier {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .link {
-  text-decoration: none;
+  color: white;
+  align-self: center;
 }

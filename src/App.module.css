@@ -5,4 +5,22 @@
   background-color: white;
   border-radius: 30px;
   padding: 20px;
+  min-height: 500px;
+}
+
+a {
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(150, 150, 150);
+  border-radius: 20px;
 }

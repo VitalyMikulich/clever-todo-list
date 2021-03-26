@@ -1,5 +1,9 @@
 .TodaysTasks {
   text-align: left;
   width: 60%;
-  margin: auto;
+  margin: 20px auto;
+}
+
+.TodaysTasks>h2 {
+  margin-left: 14px;
 }

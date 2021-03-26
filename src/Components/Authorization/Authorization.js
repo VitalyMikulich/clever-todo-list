@@ -1,67 +1,98 @@
-import React from 'react'
-import { useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
 import styles from './Authorization.module.css'
 import firebaseApp from '../../firebase'
+import ModalWindow from '../ModalWindow/ModalWindow'
+import { Link, Redirect } from 'react-router-dom'
 import { setUserId } from '../../store/actions'
-// import PropTypes from 'prop-types'
 import { connect, useStore } from 'react-redux'
+import { Button, makeStyles, Modal, TextField } from '@material-ui/core'
+
+const useStyles = makeStyles({
+  textField: {
+    marginBottom: '10px',
+  },
+  button: {
+    alignSelf: 'center',
+    width: '200px',
+  },
+})
 
 const Authorization = () => {
   const store = useStore()
-  console.log(store.getState())
-  const [emailInput, setEmailInput] = useState('');
+  const classes = useStyles()
+  const [emailInput, setEmailInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [isOnline, setIsOnline] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [errorText, setErrorText] = useState(null)
 
   const signin = (event, email, password) => {
-    event.preventDefault();
+    event.preventDefault()
     return new Promise((resolve, reject) => {
-      firebaseApp.auth().signInWithEmailAndPassword(email, password)
-        .then(userCreds => {
+      firebaseApp
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((userCreds) => {
           console.log(userCreds)
           store.dispatch(setUserId(userCreds.user.uid))
           setIsOnline(true)
           resolve()
         })
-        .catch(error => {
+        .catch((error) => {
+          setErrorText(error.message)
+          setModal(true)
           reject(error)
         })
     })
   }
 
+  const handleClose = () => {
+    setModal(false)
+  }
+
   return (
-    <div className={ styles.AuthorizationContainer }>
+    <div className={styles.AuthorizationContainer}>
+      <div>Sign In To Clever To-Do list</div>
       <form>
-        <input
-          value={ emailInput }
-          placeholder="Email"
-          required
-          type="email" 
+        <TextField
+          size="small"
+          classes={{ root: classes.textField }}
+          variant="outlined"
+          value={emailInput}
+          label="Email"
+          type="email"
           onChange={ (event) => setEmailInput(event.target.value) }
         />
-        <input
-          value={ passwordInput }
-          placeholder="Password"
-          required
+        <TextField
+          size="small"
+          classes={{ root: classes.textField }}
+          variant="outlined"
+          value={passwordInput}
+          label="Password"
           type="password"
           onChange={ (event) => setPasswordInput(event.target.value) }
         />
-        <button
+        <Button
           type="submit"
-          onClick={(event) => signin(event, emailInput, passwordInput)}
+          variant="contained"
+          onClick={ (event) => signin(event, emailInput, passwordInput) }
+          classes={{ root: classes.button }}
         >
           Sign In
-        </button>
+        </Button>
       </form>
-      <Link to="/register">Register</Link>
-      { isOnline ? <Redirect to='/calendar' /> : null }
+      <div>
+        Or{' '}
+        <Link className={ styles.link } to="/register">
+          Create an account
+        </Link>
+      </div>
+      {isOnline ? <Redirect to="/calendar" /> : null}
+      <Modal open={modal}>
+        <ModalWindow errorText={ errorText } handleClose={ handleClose } />
+      </Modal>
     </div>
   )
 }
-
-// Authorization.propTypes = {
-  // store: PropTypes.object
-// }
 
 export default connect()(Authorization)
