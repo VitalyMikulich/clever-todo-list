@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import styles from './Day.module.css'
-import firebaseApp from '../../firebase'
+import firebaseApp from '../../../../firebase'
 import { useStore } from 'react-redux'
-import { setDate } from '../../store/actions'
+import { setDate } from '../../../../store/actions'
 
 const Day = ({ date, setCurrentDate }) => {
   const store = useStore()

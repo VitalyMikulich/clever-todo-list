@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import firebaseApp from '../../firebase'
+import firebaseApp from '../../../firebase'
 import styles from './Header.module.css'
-import { setDate, setUserId } from '../../store/actions'
+import { setDate, setUserId } from '../../../store/actions'
 import { Button } from '@material-ui/core'
 import { useStore } from 'react-redux'
 import { Redirect } from 'react-router-dom'
@@ -34,14 +34,14 @@ const Header = () => {
       <h2>Tassker</h2>
       <div>
         <Button
-          size="small"
+          size='small'
           onClick={() => signOut()}
           disabled={ buttonDisabled }
         >
           Sign Out
         </Button>
       </div>
-      {isOnline ? null : <Redirect to="/signin" />}
+      {isOnline ? null : <Redirect to='/signin' />}
     </header>
   )
 }

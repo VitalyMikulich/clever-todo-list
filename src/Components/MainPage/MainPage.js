@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Calendar from '../Calendar/Calendar'
-import Header from '../Header/Header'
-import TodaysTasks from '../TodaysTasks/TodaysTasks'
+import Calendar from './Calendar/Calendar'
+import Header from './Header/Header'
+import TodaysTasks from './TodaysTasks/TodaysTasks'
 import styles from './MainPage.module.css'
 import { Button, makeStyles } from '@material-ui/core'
 import { Add } from '@material-ui/icons'
@@ -38,8 +38,8 @@ const MainPage = () => {
       >
         <Button
           classes={{ root: classes.button }}
-          color="primary"
-          variant="contained"
+          color='primary'
+          variant='contained'
           startIcon={ <Add /> }
         >
           Add a New Task

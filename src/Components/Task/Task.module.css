@@ -42,6 +42,12 @@
   margin-bottom: 20px;
 }
 
+.countOfWords {
+  text-align: right;
+  font-size: 10px;
+  margin-bottom: 20px;
+}
+
 ::-webkit-scrollbar-track {
   background: white;
 }

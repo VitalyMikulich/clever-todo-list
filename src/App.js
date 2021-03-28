@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
 import MainPage from './Components/MainPage/MainPage'
 import Authorization from './Components/Authorization/Authorization'
 import Register from './Components/Register/Register'
 import styles from './App.module.css'
 import firebaseApp from './firebase'
 import TaskContainer from './Components/TaskContainer/TaskContainer'
+import Task from './Components/Task/Task'
+import PrivateRouteOnline from './Components/PrivateRoute/PrivateRouteOnline'
+import PrivateRouteOffline from './Components/PrivateRoute/PrivateRouteOffline'
 import { useStore } from 'react-redux'
 import { setUserId } from './store/actions'
-import Task from './Components/Task/Task'
-
-import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 function App() {
-  const [isOnline, setIsOnline] = useState(null)
+  const [redirect, setRedirect] = useState(null)
   const store = useStore()
   const { userID } = store.getState()
 
@@ -22,10 +22,10 @@ function App() {
       firebaseApp.auth().onAuthStateChanged(user => {
         if (user) {
           store.dispatch(setUserId(user.uid))
-          setIsOnline(<Redirect to="/calendar" />)
+          setRedirect(<Redirect to='/calendar' />)
           resolve()
         } else {
-          setIsOnline(<Redirect to='/signin' />)
+          setRedirect(<Redirect to='/signin' />)
           reject()
         }
       })
@@ -38,13 +38,13 @@ function App() {
 
 
   return (
-    <div className={styles.App} onLoad={ () => authorization() }>
+    <div className={styles.App}>
       <Switch>
-        <Route path="/signin" component={ Authorization } />
-        <Route path="/register" component={ Register } />
-        <PrivateRoute path='/calendar' component={ MainPage } />
-        <Route path="/task/:id" render={(props) => <TaskContainer {...props} component={ Task } /> } />\
-          { isOnline || null }
+        <PrivateRouteOffline path='/register' component={ Register } />
+        <PrivateRouteOffline path='/signin' component={ Authorization } />
+        <PrivateRouteOnline path='/calendar' component={ MainPage } />
+        <Route path='/task/:id' render={(props) => <TaskContainer {...props} component={ Task } /> } />\
+          { redirect || null }
       </Switch>
     </div>
   );

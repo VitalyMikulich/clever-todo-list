@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import styles from './ToDo.module.css'
-import firebaseApp from '../../firebase'
+import firebaseApp from '../../../../firebase'
 import { useStore } from 'react-redux'
 import { Checkbox } from '@material-ui/core'
 import { CheckCircle, RadioButtonUnchecked } from '@material-ui/icons'
@@ -33,7 +33,7 @@ const ToDo = ({ todo }) => {
         icon={ <RadioButtonUnchecked /> }
         checkedIcon={ <CheckCircle /> }
         checked={ checkboxValue }
-        color="primary"
+        color='primary'
         onChange={(event) => {
           updateDone(event)
           if (checkboxValue) {

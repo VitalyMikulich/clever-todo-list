@@ -6,7 +6,7 @@ const TaskContainer = ({ location, component: Component }) => {
   return (
     <>
       { !location.props ? (
-        <Redirect to="/calendar" />
+        <Redirect to='/calendar' />
       ) : (
         <Component locProps={ location.props } />
       ) }

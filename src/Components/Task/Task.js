@@ -107,7 +107,7 @@ const Task = ({ locProps }) => {
     <div className={ styles.Task }>
       <div>
         <header>
-          <Link className={ styles.link } to="/calendar">
+          <Link className={ styles.link } to='/calendar'>
             <Button startIcon={ <ArrowBackIos /> }>Back</Button>
           </Link>
         </header>
@@ -116,16 +116,17 @@ const Task = ({ locProps }) => {
             <TextField
               value={ inputTitle }
               classes={{ root: classes.textField }}
-              type="text"
-              label="Title"
-              variant="outlined"
+              type='text'
+              label='Title'
+              variant='outlined'
               inputProps={{ maxLength: 100 }}
               onChange={(event) => setInputTitle(event.target.value)}
             />
+            <div className={ styles.countOfWords }>{ inputTitle.length }/100</div>
             <TextField
               multiline
-              label="Description"
-              variant="outlined"
+              label='Description'
+              variant='outlined'
               rows={ 10 }
               rowsMax={ 20 }
               value={ inputDescription }
@@ -133,6 +134,7 @@ const Task = ({ locProps }) => {
               inputProps={{ maxLength: 2000 }}
               onChange={(event) => setInputDescription(event.target.value)}
             />
+            <div className={ styles.countOfWords }>{ inputDescription.length }/2000</div>
         </form>
         ) : (
           <>
@@ -141,7 +143,7 @@ const Task = ({ locProps }) => {
                 icon={ <RadioButtonUnchecked /> }
                 checkedIcon={ <CheckCircle /> }
                 checked={checkboxValue}
-                color="primary"
+                color='primary'
                 onChange={(event) => {
                   updateDone(event, date, inputTitle, inputDescription)
                   if (checkboxValue) {
@@ -165,7 +167,7 @@ const Task = ({ locProps }) => {
                 classes={{ root: classes.completeButton }}
                 onClick={(event) => {
                   saveTask(event, date, inputTitle, inputDescription)
-                  { locProps ? setRedirectToMain(true) : setEdit(false) }
+                  { locProps.newtask ? setRedirectToMain(true) : setEdit(false) }
                 }}
                 disabled={ buttonDisabled }
               >

@@ -4,7 +4,7 @@ import firebaseApp from '../../firebase'
 import ModalWindow from '../ModalWindow/ModalWindow'
 import { Link, Redirect } from 'react-router-dom'
 import { setUserId } from '../../store/actions'
-import { connect, useStore } from 'react-redux'
+import { useStore } from 'react-redux'
 import { Button, CircularProgress, makeStyles, Modal, TextField } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -42,7 +42,7 @@ const Authorization = () => {
         .catch((error) => {
           setErrorText(error.message)
           setModal(true)
-          reject(error)
+          reject()
         })
         .finally(() => {
           setButtonDisabled(false)
@@ -55,30 +55,31 @@ const Authorization = () => {
   }
 
   return (
-    <div className={styles.AuthorizationContainer}>
+    <div className={ styles.AuthorizationContainer }>
+      {isOnline ? <Redirect to='/calendar' /> : null}
       <div>Sign In To Clever To-Do list</div>
       <form>
         <TextField
-          size="small"
+          size='small'
           classes={{ root: classes.textField }}
-          variant="outlined"
+          variant='outlined'
           value={emailInput}
-          label="Email"
-          type="email"
+          label='Email'
+          type='email'
           onChange={ (event) => setEmailInput(event.target.value) }
         />
         <TextField
-          size="small"
+          size='small'
           classes={{ root: classes.textField }}
-          variant="outlined"
+          variant='outlined'
           value={passwordInput}
-          label="Password"
-          type="password"
+          label='Password'
+          type='password'
           onChange={ (event) => setPasswordInput(event.target.value) }
         />
         <Button
-          type="submit"
-          variant="contained"
+          type='submit'
+          variant='contained'
           onClick={ (event) => signin(event, emailInput, passwordInput) }
           classes={{ root: classes.button }}
           disabled={ buttonDisabled }
@@ -88,11 +89,10 @@ const Authorization = () => {
       </form>
       <div>
         Or{' '}
-        <Link className={ styles.link } to="/register">
+        <Link className={ styles.link } to='/register'>
           Create an account
         </Link>
       </div>
-      {isOnline ? <Redirect to="/calendar" /> : null}
       <Modal open={ modal }>
         <ModalWindow errorText={ errorText } handleClose={ handleClose } />
       </Modal>
@@ -100,4 +100,4 @@ const Authorization = () => {
   )
 }
 
-export default connect()(Authorization)
+export default Authorization

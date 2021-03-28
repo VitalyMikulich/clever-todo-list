@@ -30,6 +30,7 @@ const Register = () => {
   const register = (event, email, password) => {
     event.preventDefault()
     return new Promise((resolve, reject) => {
+      setButtonDisabled(true)
       firebaseApp
         .auth()
         .createUserWithEmailAndPassword(email, password)
@@ -58,26 +59,26 @@ const Register = () => {
       <div>Join Clever To-Do list</div>
       <form>
         <TextField
-          size="small"
+          size='small'
           classes={{ root: classes.textField }}
-          variant="outlined"
+          variant='outlined'
           value={emailInput}
-          label="Email"
-          type="email"
+          label='Email'
+          type='email'
           onChange={(event) => setEmailInput(event.target.value)}
         />
         <TextField
-          size="small"
+          size='small'
           classes={{ root: classes.textField }}
-          variant="outlined"
+          variant='outlined'
           value={passwordInput}
-          label="Password"
-          type="password"
+          label='Password'
+          type='password'
           onChange={(event) => setPasswordInput(event.target.value)}
         />
         <Button
-          type="submit"
-          variant="contained"
+          type='submit'
+          variant='contained'
           onClick={(event) => register(event, emailInput, passwordInput)}
           classes={{ root: classes.button }}
           disabled={ buttonDisabled }
@@ -87,11 +88,11 @@ const Register = () => {
       </form>
       <div>
         Or{' '}
-        <Link className={ styles.link } to="/signin">
+        <Link className={ styles.link } to='/signin'>
           Sign in with an existing account
         </Link>
       </div>
-      { isOnline ? <Redirect to="/calendar" /> : null }
+      { isOnline ? <Redirect to='/calendar' /> : null }
       <Modal open={ modal }>
         <ModalWindow errorText={ errorText } handleClose={ handleClose } />
       </Modal>
