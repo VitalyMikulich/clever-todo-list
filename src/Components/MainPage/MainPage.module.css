@@ -1,10 +1,12 @@
 .mainPageContaier {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 580px;
+  justify-content: space-between;
 }
 
 .link {
   color: white;
   align-self: center;
+  margin-bottom: 20px;
 }

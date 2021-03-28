@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import firebaseApp from '../../firebase'
 import styles from './Header.module.css'
@@ -10,6 +9,8 @@ import { Redirect } from 'react-router-dom'
 const Header = () => {
   const store = useStore()
   const [isOnline, setIsOnline] = useState(true)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
+
   const signOut = () => {
     return new Promise((resolve, reject) => {
       firebaseApp
@@ -22,6 +23,9 @@ const Header = () => {
           resolve()
         })
         .catch((error) => reject(error))
+        .finally(() => {
+          setButtonDisabled(false)
+        })
     })
   }
 
@@ -29,7 +33,11 @@ const Header = () => {
     <header className={styles.mainPage}>
       <h2>Tassker</h2>
       <div>
-        <Button size="small" onClick={() => signOut()}>
+        <Button
+          size="small"
+          onClick={() => signOut()}
+          disabled={ buttonDisabled }
+        >
           Sign Out
         </Button>
       </div>

@@ -4,7 +4,7 @@
   padding: 5px 0;
 }
 
-/* .daysContainer::-webkit-scrollbar {
+.daysContainer::-webkit-scrollbar {
   height: 10px;
 }
 
@@ -15,4 +15,4 @@
 .daysContainer::-webkit-scrollbar-thumb {
   background-color: rgb(150, 150, 150);
   border-radius: 20px;
-} */
+}

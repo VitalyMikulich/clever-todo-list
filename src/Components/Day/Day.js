@@ -13,7 +13,6 @@ const Day = ({ date, setCurrentDate }) => {
   const [isNotDoneToDos, setIsNotDoneToDos] = useState(false)
 
   const checkToDos = (toDos) => {
-    console.log(toDos)
     if (toDos.some((toDo) => toDo.done === true)) {
       setIsDoneToDos(true)
     } else {

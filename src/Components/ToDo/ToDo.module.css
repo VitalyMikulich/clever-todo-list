@@ -1,8 +1,12 @@
-.ToDoConatiner {
+.ToDoContainer {
   display: flex;
   align-items: center;
 }
 
 .link {
   color: black;
+}
+
+.link>div {
+  word-wrap: break-word;
 }

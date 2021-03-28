@@ -5,7 +5,7 @@ import ModalWindow from '../ModalWindow/ModalWindow'
 import { Link, Redirect } from 'react-router-dom'
 import { setUserId } from '../../store/actions'
 import { connect, useStore } from 'react-redux'
-import { Button, makeStyles, Modal, TextField } from '@material-ui/core'
+import { Button, CircularProgress, makeStyles, Modal, TextField } from '@material-ui/core'
 
 const useStyles = makeStyles({
   textField: {
@@ -25,15 +25,16 @@ const Authorization = () => {
   const [isOnline, setIsOnline] = useState(false)
   const [modal, setModal] = useState(false)
   const [errorText, setErrorText] = useState(null)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   const signin = (event, email, password) => {
     event.preventDefault()
     return new Promise((resolve, reject) => {
+      setButtonDisabled(true)
       firebaseApp
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((userCreds) => {
-          console.log(userCreds)
           store.dispatch(setUserId(userCreds.user.uid))
           setIsOnline(true)
           resolve()
@@ -42,6 +43,9 @@ const Authorization = () => {
           setErrorText(error.message)
           setModal(true)
           reject(error)
+        })
+        .finally(() => {
+          setButtonDisabled(false)
         })
     })
   }
@@ -77,8 +81,9 @@ const Authorization = () => {
           variant="contained"
           onClick={ (event) => signin(event, emailInput, passwordInput) }
           classes={{ root: classes.button }}
+          disabled={ buttonDisabled }
         >
-          Sign In
+          { buttonDisabled ? <CircularProgress size={ 25 } /> : 'Sign In' }
         </Button>
       </form>
       <div>
@@ -88,7 +93,7 @@ const Authorization = () => {
         </Link>
       </div>
       {isOnline ? <Redirect to="/calendar" /> : null}
-      <Modal open={modal}>
+      <Modal open={ modal }>
         <ModalWindow errorText={ errorText } handleClose={ handleClose } />
       </Modal>
     </div>

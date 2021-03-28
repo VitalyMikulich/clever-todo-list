@@ -8,11 +8,9 @@ import { CheckCircle, RadioButtonUnchecked } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 
 const ToDo = ({ todo }) => {
-  console.log(todo.done, '1', todo.title)
   const store = useStore()
   const { userID } = store.getState()
   const [checkboxValue, setCheckboxValue] = useState(todo.done)
-  console.log(checkboxValue, '2', todo.title)
   useEffect(() => {
     setCheckboxValue(todo.done)
   })
@@ -30,7 +28,7 @@ const ToDo = ({ todo }) => {
   }
 
   return (
-    <div className={ styles.ToDoConatiner }>
+    <div className={ styles.ToDoContainer }>
       <Checkbox
         icon={ <RadioButtonUnchecked /> }
         checkedIcon={ <CheckCircle /> }
@@ -38,7 +36,6 @@ const ToDo = ({ todo }) => {
         color="primary"
         onChange={(event) => {
           updateDone(event)
-          console.log(event.target.checked, todo.title)
           if (checkboxValue) {
             setCheckboxValue(false)
           } else {
@@ -50,10 +47,6 @@ const ToDo = ({ todo }) => {
         to={{
           pathname: `/task/${ todo.key }`,
           props: {
-            // userID,
-            // key: todo.key,
-            // date: todo.date,
-            // done: todo.done
             todo,
           },
         }}

@@ -10,3 +10,27 @@ body {
 body {
   background-color: aliceblue;
 }
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: aliceblue;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(150, 150, 150);
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 780px) {
+  body {
+    background-color: white;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+}

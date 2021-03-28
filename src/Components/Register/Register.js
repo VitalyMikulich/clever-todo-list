@@ -4,7 +4,7 @@ import firebaseApp from '../../firebase'
 import ModalWindow from '../ModalWindow/ModalWindow'
 import { setUserId } from '../../store/actions'
 import { useStore } from 'react-redux'
-import { Button, makeStyles, Modal, TextField } from '@material-ui/core'
+import { Button, CircularProgress, makeStyles, Modal, TextField } from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom'
 
 const useStyles = makeStyles({
@@ -25,6 +25,7 @@ const Register = () => {
   const [isOnline, setIsOnline] = useState(false)
   const [modal, setModal] = useState(false)
   const [errorText, setErrorText] = useState(null)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   const register = (event, email, password) => {
     event.preventDefault()
@@ -33,7 +34,6 @@ const Register = () => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((userCreds) => {
-          console.log(userCreds)
           store.dispatch(setUserId(userCreds.user.uid))
           setIsOnline(true)
           resolve()
@@ -42,6 +42,9 @@ const Register = () => {
           setErrorText(error.message)
           setModal(true)
           reject(error)
+        })
+        .finally(() => {
+          setButtonDisabled(false)
         })
     })
   }
@@ -77,8 +80,9 @@ const Register = () => {
           variant="contained"
           onClick={(event) => register(event, emailInput, passwordInput)}
           classes={{ root: classes.button }}
+          disabled={ buttonDisabled }
         >
-          Sign Up
+          { buttonDisabled ? <CircularProgress size={ 25 } /> : 'Sign Up' }
         </Button>
       </form>
       <div>

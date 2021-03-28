@@ -6,16 +6,20 @@ import styles from './TodaysTasks.module.css'
 import { useStore } from 'react-redux'
 
 const TodaysTasks = ({ currentDate }) => {
-  console.log(currentDate)
   const store = useStore()
   const { userID } = store.getState()
   const [taskCount, setTaskCount] = useState(null)
   const [currentTodos, setCurrentTodos] = useState(null)
-  console.log(store.getState())
   const getToDos = (user) => {
     if (currentDate) {
       return new Promise(() => {
-                  firebaseApp.database().ref(`${user}/${currentDate.format('YYYY-MM-DD')}`)
+                  let date
+                  if (typeof currentDate === 'string') {
+                    date = currentDate
+                  } else {
+                    date = currentDate.format('YYYY-MM-DD')
+                  }
+                  firebaseApp.database().ref(`${user}/${date}`)
                    .on('value', snapshot => {
                      const todos = snapshot.val()
                      if (todos !== null) {
@@ -24,7 +28,6 @@ const TodaysTasks = ({ currentDate }) => {
                          const todo = todos[key]
                          result.push({...todo})
                        })
-                       console.log(currentTodos)
                        setTaskCount(result.length)
                        setCurrentTodos(result)
                      } else {
@@ -38,7 +41,7 @@ const TodaysTasks = ({ currentDate }) => {
 
   useEffect(() => {
     getToDos(userID)
-  }, [currentDate])
+  }, [currentDate, userID])
 
   return (
     <div className={ styles.TodaysTasks }>
