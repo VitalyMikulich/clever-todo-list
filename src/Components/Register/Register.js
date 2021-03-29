@@ -30,7 +30,7 @@ const Register = () => {
 
   const register = (event, email, password) => {
     event.preventDefault()
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       setButtonDisabled(true)
       firebaseApp
         .auth()
@@ -38,12 +38,10 @@ const Register = () => {
         .then((userCreds) => {
           store.dispatch(setUserId(userCreds.user.uid))
           setIsOnline(true)
-          resolve()
         })
         .catch((error) => {
           setErrorText(error.message)
           setModal(true)
-          reject(error)
         })
         .finally(() => {
           setButtonDisabled(false)

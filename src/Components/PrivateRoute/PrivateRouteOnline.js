@@ -13,15 +13,13 @@ const PrivateRoute = ({ component: Component, path }) => {
   const [status, setStatus] = useState(false)
 
   const authorization = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       firebaseApp.auth().onAuthStateChanged((user) => {
         if (user) {
           store.dispatch(setUserId(user.uid))
           setRedirect(true)
-          resolve()
         } else {
           setRedirect(false)
-          reject()
         }
       })
     })

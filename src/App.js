@@ -18,22 +18,20 @@ function App() {
   const [redirect, setRedirect] = useState(null)
 
   const authorization = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       firebaseApp.auth().onAuthStateChanged(user => {
         if (user) {
           store.dispatch(setUserId(user.uid))
           setRedirect(<Redirect to='/calendar' />)
-          resolve()
         } else {
           setRedirect(<Redirect to='/signin' />)
-          reject()
         }
       })
     })
   }
 
   useEffect(() => {
-    store.dispatch(setTheme('light')) // write 'dark' for dark theme; 'light' - for default
+    store.dispatch(setTheme('light')) // write 'dark' for dark theme, 'light' - for default
     authorization()
   }, [userID])
 

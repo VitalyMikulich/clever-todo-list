@@ -54,7 +54,7 @@ const Task = ({ locProps }) => {
 
   const saveTask = (event, date, title, description) => {
     event.preventDefault()
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       const currentKey = newKey || firebaseApp.database().ref(`${ userID }/${ date }`).push().key
       firebaseApp
         .database()
@@ -67,9 +67,8 @@ const Task = ({ locProps }) => {
           date,
         })
         .then(() => {
-          resolve()
         })
-        .catch((error) => reject(error))
+        .catch((error) => console.log(error))
         .finally(() => {
           setButtonDisabled(false)
         })

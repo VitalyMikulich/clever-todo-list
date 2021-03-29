@@ -21,7 +21,7 @@ const Header = () => {
   const buttonStyle = activeTheme === 'dark' ? classes.buttonDark : ''
 
   const signOut = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       firebaseApp
         .auth()
         .signOut()
@@ -29,9 +29,8 @@ const Header = () => {
           store.dispatch(setUserId(null))
           store.dispatch(setDate(null))
           setIsOnline(false)
-          resolve()
         })
-        .catch((error) => reject(error))
+        .catch((error) => console.log(error))
         .finally(() => {
           setButtonDisabled(false)
         })
