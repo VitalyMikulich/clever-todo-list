@@ -18,7 +18,17 @@ const currentDate = (state = null, action) => {
   }
 }
 
+const activeTheme = (state = 'light', action) => {
+  switch (action.type) {
+    case 'SET_THEME':
+      return action.theme
+    default:
+      return state
+  }
+}
+
 const reducers = combineReducers({
+  activeTheme,
   userID,
   currentDate,
 })

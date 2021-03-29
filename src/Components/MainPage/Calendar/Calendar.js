@@ -21,6 +21,7 @@ const daysConstructor = (lastDay) => {
 const Calendar = ({ setCurrentDate }) => {
   const daysContainerRef = useRef()
   const store = useStore()
+  const { activeTheme } = store.getState()
   const day = moment()
   const [days, setDays] = useState(daysConstructor(day).days)
   const [lastDay, setLastDay] = useState(daysConstructor(day).lastDay)
@@ -52,7 +53,7 @@ const Calendar = ({ setCurrentDate }) => {
   return (
     <div
       ref={ daysContainerRef }
-      className={ styles.daysContainer }
+      className={ `${styles.daysContainer} ${activeTheme === 'dark' ? styles.dark : ''}` }
       onScroll={ (event) => scroll(event) }
       onWheel={ (event) => wheel(event) }
     >

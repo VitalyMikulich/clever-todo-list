@@ -20,6 +20,7 @@ const useStyles = makeStyles({
 const Register = () => {
   const store = useStore()
   const classes = useStyles()
+  const { activeTheme } = store.getState()
   const [emailInput, setEmailInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [isOnline, setIsOnline] = useState(false)
@@ -82,13 +83,14 @@ const Register = () => {
           onClick={(event) => register(event, emailInput, passwordInput)}
           classes={{ root: classes.button }}
           disabled={ buttonDisabled }
+          color={ activeTheme === 'dark' ? 'primary' : 'default' }
         >
           { buttonDisabled ? <CircularProgress size={ 25 } /> : 'Sign Up' }
         </Button>
       </form>
       <div>
         Or{' '}
-        <Link className={ styles.link } to='/signin'>
+        <Link className={ `${styles.link} ${activeTheme === 'dark' ? styles.darkLink : ''}` } to='/signin'>
           Sign in with an existing account
         </Link>
       </div>

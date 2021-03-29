@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 const ToDo = ({ todo }) => {
   const store = useStore()
-  const { userID } = store.getState()
+  const { userID, activeTheme } = store.getState()
   const [checkboxValue, setCheckboxValue] = useState(todo.done)
   useEffect(() => {
     setCheckboxValue(todo.done)
@@ -50,7 +50,7 @@ const ToDo = ({ todo }) => {
             todo,
           },
         }}
-        className={ styles.link }
+        className={ `${styles.link} ${activeTheme === 'dark' ? styles.dark : ''}` }
       >
         <div>{ todo.title }</div>
       </Link>

@@ -51,3 +51,11 @@
 ::-webkit-scrollbar-track {
   background: white;
 }
+
+.dark {
+  color: #e3e3e3;
+}
+
+.dark::-webkit-scrollbar-track {
+  background: #8590b6;
+}

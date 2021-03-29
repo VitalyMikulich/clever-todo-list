@@ -43,7 +43,10 @@ const TodaysTasks = ({ currentDate }) => {
   }
 
   useEffect(() => {
-    getToDos(userID)
+    if (userID) {
+      getToDos(userID)
+    }
+    
   }, [currentDate, userID])
 
   return (

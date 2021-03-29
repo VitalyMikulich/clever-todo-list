@@ -7,7 +7,7 @@ import { setDate } from '../../../../store/actions'
 
 const Day = ({ date, setCurrentDate }) => {
   const store = useStore()
-  const { userID } = store.getState()
+  const { userID, activeTheme } = store.getState()
   const [activeClass, setActiveClass] = useState('')
   const [isDoneToDos, setIsDoneToDos] = useState(false)
   const [isNotDoneToDos, setIsNotDoneToDos] = useState(false)
@@ -26,28 +26,30 @@ const Day = ({ date, setCurrentDate }) => {
     }
   }
 
+  const getSnapshot = snapshot => {
+    const todos = snapshot.val()
+    if (todos !== null) {
+      const result = []
+      Object.keys(todos).forEach((key) => {
+        const todo = todos[key]
+        result.push({ ...todo })
+      })
+      if (result.length) {
+        checkToDos(result)
+      } else {
+        setIsNotDoneToDos(false)
+        setIsDoneToDos(false)
+      }
+    }
+  }
+
   const getToDos = (user) => {
     if (date) {
       return new Promise(() => {
         firebaseApp
           .database()
           .ref(`${user}/${date.format('YYYY-MM-DD')}`)
-          .on('value', (snapshot) => {
-            const todos = snapshot.val()
-            if (todos !== null) {
-              const result = []
-              Object.keys(todos).forEach((key) => {
-                const todo = todos[key]
-                result.push({ ...todo })
-              })
-              if (result.length) {
-                checkToDos(result)
-              } else {
-                setIsNotDoneToDos(false)
-                setIsDoneToDos(false)
-              }
-            }
-          })
+          .on('value', getSnapshot)
       })
     }
   }
@@ -74,7 +76,7 @@ const Day = ({ date, setCurrentDate }) => {
   return (
     <div>
       <div
-        className={ `${styles.dayContainer} ${activeClass}` }
+        className={ `${styles.dayContainer} ${ activeTheme === 'dark' ? styles.dark : '' } ${activeClass}` }
         onClick={() => {
           setActive()
         }}

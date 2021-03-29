@@ -9,13 +9,13 @@ import Task from './Components/Task/Task'
 import PrivateRouteOnline from './Components/PrivateRoute/PrivateRouteOnline'
 import PrivateRouteOffline from './Components/PrivateRoute/PrivateRouteOffline'
 import { useStore } from 'react-redux'
-import { setUserId } from './store/actions'
+import { setTheme, setUserId } from './store/actions'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 function App() {
-  const [redirect, setRedirect] = useState(null)
   const store = useStore()
-  const { userID } = store.getState()
+  const { userID, activeTheme } = store.getState()
+  const [redirect, setRedirect] = useState(null)
 
   const authorization = () => {
     return new Promise((resolve, reject) => {
@@ -33,12 +33,21 @@ function App() {
   }
 
   useEffect(() => {
+    store.dispatch(setTheme('light')) // write 'dark' for dark theme; 'light' - for default
     authorization()
   }, [userID])
 
+  useEffect(() => {
+    if (activeTheme === 'dark') {
+      document.body.classList.add('darkBody')
+    } else {
+      document.body.classList.remove('darkBody')
+    }
+  })
+
 
   return (
-    <div className={styles.App}>
+    <div className={ `${ styles.App } ${ activeTheme === 'dark' ? styles.dark : '' }`}>
       <Switch>
         <PrivateRouteOffline path='/register' component={ Register } />
         <PrivateRouteOffline path='/signin' component={ Authorization } />

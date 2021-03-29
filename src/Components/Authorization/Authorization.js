@@ -10,6 +10,7 @@ import { Button, CircularProgress, makeStyles, Modal, TextField } from '@materia
 const useStyles = makeStyles({
   textField: {
     marginBottom: '10px',
+    color: 'white'
   },
   button: {
     alignSelf: 'center',
@@ -19,6 +20,7 @@ const useStyles = makeStyles({
 
 const Authorization = () => {
   const store = useStore()
+  const { activeTheme } = store.getState()
   const classes = useStyles()
   const [emailInput, setEmailInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
@@ -56,7 +58,7 @@ const Authorization = () => {
 
   return (
     <div className={ styles.AuthorizationContainer }>
-      {isOnline ? <Redirect to='/calendar' /> : null}
+      { isOnline ? <Redirect to='/calendar' /> : null }
       <div>Sign In To Clever To-Do list</div>
       <form>
         <TextField
@@ -83,13 +85,14 @@ const Authorization = () => {
           onClick={ (event) => signin(event, emailInput, passwordInput) }
           classes={{ root: classes.button }}
           disabled={ buttonDisabled }
+          color={ activeTheme === 'dark' ? 'primary' : 'default' }
         >
           { buttonDisabled ? <CircularProgress size={ 25 } /> : 'Sign In' }
         </Button>
       </form>
       <div>
         Or{' '}
-        <Link className={ styles.link } to='/register'>
+        <Link className={ `${styles.link} ${activeTheme === 'dark' ? styles.darkLink : ''}` } to='/register'>
           Create an account
         </Link>
       </div>

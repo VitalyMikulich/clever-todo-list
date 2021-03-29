@@ -43,6 +43,7 @@ const Task = ({ locProps }) => {
     editWindow = false
     key = todo.key
   }
+
   const [checkboxValue, setCheckboxValue] = useState(value)
   const [edit, setEdit ] = useState(editWindow)
   const [redirectToMain, setRedirectToMain] = useState(false)
@@ -131,7 +132,7 @@ const Task = ({ locProps }) => {
               rowsMax={ 20 }
               value={ inputDescription }
               classes={{ root: classes.textField }}
-              inputProps={{ maxLength: 2000 }}
+              inputProps={{ maxLength: 2000}}
               onChange={(event) => setInputDescription(event.target.value)}
             />
             <div className={ styles.countOfWords }>{ inputDescription.length }/2000</div>

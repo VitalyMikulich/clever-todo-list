@@ -14,6 +14,14 @@
   transition: .3s;
 }
 
+.dark {
+  background-color: #20336f87;
+}
+
+.dark:hover {
+  background-color: #0c142b87;
+}
+
 .active {
   background-color: black;
   color: white;

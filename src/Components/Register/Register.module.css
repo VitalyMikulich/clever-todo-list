@@ -20,3 +20,11 @@
 .link {
   align-self: center;
 }
+
+.dark {
+  color: #e3e3e3;
+}
+
+.darkLink {
+  color: #29307b;
+}
