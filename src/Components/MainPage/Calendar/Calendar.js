@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Day from './Day/Day'
 import PropTypes from 'prop-types'
 import styles from './Calendar.module.css'
@@ -19,6 +19,7 @@ const daysConstructor = (lastDay) => {
 }
 
 const Calendar = ({ setCurrentDate }) => {
+  const daysContainerRef = useRef()
   const store = useStore()
   const day = moment()
   const [days, setDays] = useState(daysConstructor(day).days)
@@ -29,15 +30,32 @@ const Calendar = ({ setCurrentDate }) => {
     setCurrentDate(day)
   }, [])
 
+  const wheel = (event) => {
+    daysContainerRef.current.scrollTo({
+      top: 0,
+      left: daysContainerRef.current.scrollLeft + event.deltaY,
+    })
+  }
+
   const scroll = (event) => {
-    if (event.target.scrollWidth - event.target.scrollLeft - event.target.clientWidth < 1) {
+    if (
+      event.target.scrollWidth -
+        event.target.scrollLeft -
+        event.target.clientWidth <
+      1
+    ) {
       setDays(days.concat(daysConstructor(lastDay).days))
       setLastDay(daysConstructor(lastDay).lastDay)
     }
   }
 
   return (
-    <div className={ styles.daysContainer } onScroll={(event) => scroll(event) }>
+    <div
+      ref={ daysContainerRef }
+      className={ styles.daysContainer }
+      onScroll={ (event) => scroll(event) }
+      onWheel={ (event) => wheel(event) }
+    >
       {days.map((date, index) => {
         return (
           <Day
