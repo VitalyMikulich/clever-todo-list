@@ -8,7 +8,10 @@ https://docs.google.com/document/u/2/d/1heFuihWrsw14bCpUdr6fla9ysqE6IrsobSMKAOpB
 
 ### 1. API
 
-Open `env.example` file and past your firebase data.
+1. Create `.env` file. 
+2. Open `.env.example` file and copy content.
+3. Paste it to `.env` file.
+4. Add in rights parts your firebase keys. 
 
 ### 2. `yarn install` or `npm i`
 
@@ -64,4 +67,10 @@ ModalWindow - component that shows an error that occurs during authorization and
 * PrivateRoute - contains PrivateRouteOnline and PrivateRouteOffline, which, depending on the user is online or not, return the Route to the passed page, otherwise redirect to the accessible page
 * Registration - folder for registration component
 * Task - folder for component of creation, updating and viewing of task
-* TaskContainer - if props is passed to the component, renders to the component, otherwise redirect to the main page
+* TaskContainer - if props is passed to the Task component, renders Task component, otherwise redirect to the main page
+
+## 6. Dark Theme
+
+https://github.com/VitalyMikulich/clever-todo-list/blob/704110301e0c060a0fab268c4e2df1e54791c03d/src/App.js#L37
+
+At this line change `light` to `dark` to enable dark theme.
