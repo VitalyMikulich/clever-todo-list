@@ -1,12 +1,22 @@
-# Getting Started with Create React App
+# Clever To-Do List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 1. Task
 
-## Available Scripts
+https://docs.google.com/document/u/2/d/1heFuihWrsw14bCpUdr6fla9ysqE6IrsobSMKAOpBiKA/mobilebasic
+
+## 2. How to run the app
+
+### 1. API
+
+Open `env.example` file and past your firebase data.
+
+### 2. `yarn install` or `npm i`
 
 In the project directory, you can run:
 
-### `yarn start`
+Install the dependencies in the local `node_modules` folder.
+
+### 3. `yarn start` or `npm run start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -14,12 +24,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
+#### `yarn build` or `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -29,42 +34,34 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## 3. Database snapshot
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+| Database  |       |          |                  |                              |
+|---        |---    |---       |---               |---                           |
+| User ID:  | &not; |          |                  |                              |
+|           | Day:  |  &not;   |                  |                              |
+|           |       | Task ID: |  &not;           |                              |
+|           |       |          |    date:         |  `string`: '2021-03-29'      |
+|           |       |          |    description:  |  `string`: 'Any description' |
+|           |       |          |    done:         | `boolen`: `true` or `false`  |
+|           |       |          |    key:          | `string`: `Generated key`    |
+|           |       |          |    title:        |  `string`: 'Any title'       |
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 4. Application stack
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. [React](https://ru.reactjs.org/)
+2. [Redux](https://redux.js.org/)
+3. [React Router Dom](https://reactrouter.com/web/guides/quick-start)
+4. [FireBase (Realtime Database and Authentication)](https://firebase.google.com/)
+5. [Moment.js](https://momentjs.com/)
+6. [Material UI](https://material-ui.com/)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 5. Folders
+* Store - js files for app state
+* Authorization - folder for authorization component
+* MainPage - folder for main page component. Also contains folders of components used in the MainPage (Calendara => Day, Header, TodaysTasks => ToDo)
+ModalWindow - component that shows an error that occurs during authorization and registration
+* PrivateRoute - contains PrivateRouteOnline and PrivateRouteOffline, which, depending on the user is online or not, return the Route to the passed page, otherwise redirect to the accessible page
+* Registration - folder for registration component
+* Task - folder for component of creation, updating and viewing of task
+* TaskContainer - if props is passed to the component, renders to the component, otherwise redirect to the main page
