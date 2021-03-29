@@ -31,7 +31,7 @@ const Authorization = () => {
 
   const signin = (event, email, password) => {
     event.preventDefault()
-    return new Promise(() => {
+    return new Promise((resolve, reject) => {
       setButtonDisabled(true)
       firebaseApp
         .auth()
@@ -39,10 +39,12 @@ const Authorization = () => {
         .then((userCreds) => {
           store.dispatch(setUserId(userCreds.user.uid))
           setIsOnline(true)
+          resolve()
         })
         .catch((error) => {
           setErrorText(error.message)
           setModal(true)
+          reject()
         })
         .finally(() => {
           setButtonDisabled(false)

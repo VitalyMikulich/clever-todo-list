@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import MainPage from './Components/MainPage/MainPage'
 import Authorization from './Components/Authorization/Authorization'
-import Register from './Components/Register/Register'
+import Registration from './Components/Registration/Registration'
 import styles from './App.module.css'
 import firebaseApp from './firebase'
 import TaskContainer from './Components/TaskContainer/TaskContainer'
@@ -16,22 +16,25 @@ function App() {
   const store = useStore()
   const { userID, activeTheme } = store.getState()
   const [redirect, setRedirect] = useState(null)
+  console.log(document.documentElement.clientHeight)
 
   const authorization = () => {
-    return new Promise(() => {
+    return new Promise((resolve, reject) => {
       firebaseApp.auth().onAuthStateChanged(user => {
         if (user) {
           store.dispatch(setUserId(user.uid))
           setRedirect(<Redirect to='/calendar' />)
+          resolve()
         } else {
           setRedirect(<Redirect to='/signin' />)
+          reject()
         }
       })
     })
   }
 
   useEffect(() => {
-    store.dispatch(setTheme('light')) // write 'dark' for dark theme, 'light' - for default
+    store.dispatch(setTheme('dark')) // write 'dark' for dark theme; 'light' - for default
     authorization()
   }, [userID])
 
@@ -47,7 +50,7 @@ function App() {
   return (
     <div className={ `${ styles.App } ${ activeTheme === 'dark' ? styles.dark : '' }`}>
       <Switch>
-        <PrivateRouteOffline path='/register' component={ Register } />
+        <PrivateRouteOffline path='/register' component={ Registration } />
         <PrivateRouteOffline path='/signin' component={ Authorization } />
         <PrivateRouteOnline path='/calendar' component={ MainPage } />
         <Route path='/task/:id' render={(props) => <TaskContainer {...props} component={ Task } /> } />\

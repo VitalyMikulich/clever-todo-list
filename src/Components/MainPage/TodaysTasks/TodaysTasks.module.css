@@ -1,9 +1,15 @@
 .TodaysTasks {
   text-align: left;
-  width: 60%;
+  width: 85%;
   margin: 20px auto;
 }
 
 .TodaysTasks>h2 {
   margin-left: 14px;
+}
+
+@media screen and (max-width: 780px) {
+  .TodaysTasks {
+    width: 100%;
+  }
 }

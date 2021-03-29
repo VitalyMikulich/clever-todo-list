@@ -10,3 +10,9 @@
   align-self: center;
   margin-bottom: 20px;
 }
+
+@media screen and (min-height: 750px) {
+  .mainPageContaier {
+    min-height: 700px;
+  }
+}

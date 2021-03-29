@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from './Register.module.css'
+import styles from './Registration.module.css'
 import firebaseApp from '../../firebase'
 import ModalWindow from '../ModalWindow/ModalWindow'
 import { setUserId } from '../../store/actions'
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 })
 
-const Register = () => {
+const Registration = () => {
   const store = useStore()
   const classes = useStyles()
   const { activeTheme } = store.getState()
@@ -30,7 +30,7 @@ const Register = () => {
 
   const register = (event, email, password) => {
     event.preventDefault()
-    return new Promise(() => {
+    return new Promise((resolve, reject) => {
       setButtonDisabled(true)
       firebaseApp
         .auth()
@@ -38,10 +38,12 @@ const Register = () => {
         .then((userCreds) => {
           store.dispatch(setUserId(userCreds.user.uid))
           setIsOnline(true)
+          resolve()
         })
         .catch((error) => {
           setErrorText(error.message)
           setModal(true)
+          reject(error)
         })
         .finally(() => {
           setButtonDisabled(false)
@@ -54,7 +56,7 @@ const Register = () => {
   }
 
   return (
-    <div className={ styles.RegisterContainer }>
+    <div className={ styles.RegistrationContainer }>
       <div>Join Clever To-Do list</div>
       <form>
         <TextField
@@ -100,4 +102,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Registration

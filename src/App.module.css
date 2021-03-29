@@ -16,3 +16,16 @@ a {
   background-color: #8590b6;
   color: #e3e3e3;
 }
+
+@media screen and (max-width: 780px) {
+  .App {
+    margin: 0;
+    padding: 10px;
+  }
+}
+
+@media screen and (min-height: 750px) {
+  .App {
+    min-height: 700px;
+  }
+}

@@ -12,7 +12,7 @@ const setDate = (date) => ({
 
 const setTheme = (theme) => ({
   type: SET_THEME,
-  theme
+  theme,
 })
 
 export { setUserId, setDate, setTheme }

@@ -33,7 +33,6 @@
   flex-direction: column;
   justify-content: 'center';
   margin: 5px auto;
-  width: 90%;
 }
 
 .buttonsContainer {
@@ -58,4 +57,20 @@
 
 .dark::-webkit-scrollbar-track {
   background: #8590b6;
+}
+
+@media screen and (max-width: 600px) {
+  .Task {
+    width: 100%;
+  }
+
+  .Task p {
+    padding: 0 10px;
+  }
+}
+
+@media screen and (min-height: 750px) {
+  .mainPageContaier {
+    min-height: 700px;
+  }
 }

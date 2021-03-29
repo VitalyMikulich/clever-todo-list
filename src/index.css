@@ -5,9 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body {
+  font-size: 15px;
   background-color: aliceblue;
 }
 
@@ -32,6 +30,7 @@ body {
 @media screen and (max-width: 780px) {
   body {
     background-color: white;
+    font-size: 12px;
   }
 
   ::-webkit-scrollbar-track {

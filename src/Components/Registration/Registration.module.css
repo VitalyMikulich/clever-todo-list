@@ -1,11 +1,11 @@
-.RegisterContainer {
+.RegistrationContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 30px 0;
 }
 
-.RegisterContainer>form {
+.RegistrationContainer>form {
   display: flex;
   flex-direction: column;
   justify-content: 'center';
@@ -13,7 +13,7 @@
   width: 60%;
 }
 
-.RegisterContainer>div {
+.RegistrationContainer>div {
   margin: 10px 0;
 }
 
