@@ -53,16 +53,17 @@ const Calendar = ({ setCurrentDate }) => {
   return (
     <div
       ref={ daysContainerRef }
-      className={ `${styles.daysContainer} ${activeTheme === 'dark' ? styles.dark : ''}` }
-      onScroll={ (event) => scroll(event) }
-      onWheel={ (event) => wheel(event) }
+      className={ `${ styles.daysContainer } ${
+        activeTheme === 'dark' ? styles.dark : ''}`}
+      onScroll={(event) => scroll(event)}
+      onWheel={(event) => wheel(event)}
     >
       {days.map((date, index) => {
         return (
           <Day
             key={ `key${index}` }
             date={ date }
-            setCurrentDate={ (date) => setCurrentDate(date) }
+            setCurrentDate={(date) => setCurrentDate(date)}
           />
         )
       })}

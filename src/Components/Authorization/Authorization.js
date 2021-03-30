@@ -92,7 +92,11 @@ const Authorization = () => {
       </form>
       <div>
         Or{' '}
-        <Link className={ `${styles.link} ${activeTheme === 'dark' ? styles.darkLink : ''}` } to='/register'>
+        <Link
+          to='/register'
+          className={ `${styles.link} ${
+            activeTheme === 'dark' ? styles.darkLink : ''}` }
+        >
           Create an account
         </Link>
       </div>

@@ -26,7 +26,7 @@ const Day = ({ date, setCurrentDate }) => {
     }
   }
 
-  const getSnapshot = snapshot => {
+  const getSnapshot = (snapshot) => {
     const todos = snapshot.val()
     if (todos !== null) {
       const result = []
@@ -70,14 +70,15 @@ const Day = ({ date, setCurrentDate }) => {
   useEffect(() => {
     if (userID) {
       getToDos(userID)
-      // return unsubscribe(userID)
     }
   }, [userID])
 
   return (
     <div>
       <div
-        className={ `${styles.dayContainer} ${ activeTheme === 'dark' ? styles.dark : '' } ${activeClass}` }
+        className={`${styles.dayContainer} ${
+          activeTheme === 'dark' ? styles.dark : ''
+        } ${activeClass}`}
         onClick={() => {
           setActive()
         }}
@@ -86,13 +87,13 @@ const Day = ({ date, setCurrentDate }) => {
         <div>{date.format('MMM')}</div>
         <div>{date.format('Do')}</div>
       </div>
-      <div className={ styles.toDosContainer }>
-        { isNotDoneToDos ? (
-          <div className={ `${styles.toDo} ${styles.notDoneToDo}` }></div>
-        ) : null }
+      <div className={styles.toDosContainer}>
+        {isNotDoneToDos ? (
+          <div className={`${styles.toDo} ${styles.notDoneToDo}`}></div>
+        ) : null}
         {isDoneToDos ? (
-          <div className={ `${styles.toDo} ${styles.doneToDo}` }></div>
-        ) : null }
+          <div className={`${styles.toDo} ${styles.doneToDo}`}></div>
+        ) : null}
       </div>
     </div>
   )

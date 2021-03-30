@@ -19,12 +19,12 @@ const MainPage = () => {
   const { currentDate: date } = store.getState()
   const [currentDate, setCurrentDate] = useState(null || date)
   const classes = useStyles()
-  
+
   return (
     <div className={ styles.mainPageContaier }>
       <div>
         <Header />
-        <Calendar setCurrentDate={ (date) => setCurrentDate(date) } />
+        <Calendar setCurrentDate={(date) => setCurrentDate(date)} />
         <TodaysTasks currentDate={ currentDate } />
       </div>
       <Link
@@ -32,14 +32,14 @@ const MainPage = () => {
         to={{
           pathname: '/task/new',
           props: {
-            newtask: 'newtask'
-          }
+            newtask: 'newtask',
+          },
         }}
       >
         <Button
           classes={{ root: classes.button }}
-          color='primary'
-          variant='contained'
+          color="primary"
+          variant="contained"
           startIcon={ <Add /> }
         >
           Add a New Task

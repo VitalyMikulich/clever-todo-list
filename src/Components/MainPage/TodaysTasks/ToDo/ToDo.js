@@ -19,7 +19,7 @@ const ToDo = ({ todo }) => {
     return new Promise(() => {
       firebaseApp
         .database()
-        .ref(`${ userID }/${ todo.date }/${ todo.key }`)
+        .ref(`${userID}/${todo.date}/${todo.key}`)
         .set({
           ...todo,
           done: event.target.checked,
@@ -28,12 +28,12 @@ const ToDo = ({ todo }) => {
   }
 
   return (
-    <div className={ styles.ToDoContainer }>
+    <div className={styles.ToDoContainer}>
       <Checkbox
-        icon={ <RadioButtonUnchecked /> }
-        checkedIcon={ <CheckCircle /> }
-        checked={ checkboxValue }
-        color='primary'
+        icon={<RadioButtonUnchecked />}
+        checkedIcon={<CheckCircle />}
+        checked={checkboxValue}
+        color="primary"
         onChange={(event) => {
           updateDone(event)
           if (checkboxValue) {
@@ -50,7 +50,8 @@ const ToDo = ({ todo }) => {
             todo,
           },
         }}
-        className={ `${styles.link} ${activeTheme === 'dark' ? styles.dark : ''}` }
+        className={`${styles.link} 
+          ${activeTheme === 'dark' ? styles.dark : ''}`}
       >
         <div>{ todo.title }</div>
       </Link>

@@ -90,7 +90,11 @@ const Registration = () => {
       </form>
       <div>
         Or{' '}
-        <Link className={ `${styles.link} ${activeTheme === 'dark' ? styles.darkLink : ''}` } to='/signin'>
+        <Link
+          to='/signin'
+          className={ `${styles.link} ${
+            activeTheme === 'dark' ? styles.darkLink : ''}` }
+        >
           Sign in with an existing account
         </Link>
       </div>

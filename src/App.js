@@ -16,17 +16,16 @@ function App() {
   const store = useStore()
   const { userID, activeTheme } = store.getState()
   const [redirect, setRedirect] = useState(null)
-  console.log(document.documentElement.clientHeight)
 
   const authorization = () => {
     return new Promise((resolve, reject) => {
-      firebaseApp.auth().onAuthStateChanged(user => {
+      firebaseApp.auth().onAuthStateChanged((user) => {
         if (user) {
           store.dispatch(setUserId(user.uid))
-          setRedirect(<Redirect to='/calendar' />)
+          setRedirect(<Redirect to="/calendar" />)
           resolve()
         } else {
-          setRedirect(<Redirect to='/signin' />)
+          setRedirect(<Redirect to="/signin" />)
           reject()
         }
       })
@@ -34,7 +33,7 @@ function App() {
   }
 
   useEffect(() => {
-    store.dispatch(setTheme('dark')) // write 'dark' for dark theme; 'light' - for default
+    store.dispatch(setTheme('light')) // write 'dark' for dark theme; 'light' - for default
     authorization()
   }, [userID])
 
@@ -46,18 +45,22 @@ function App() {
     }
   })
 
-
   return (
-    <div className={ `${ styles.App } ${ activeTheme === 'dark' ? styles.dark : '' }`}>
+    <div
+      className={`${styles.App} ${activeTheme === 'dark' ? styles.dark : ''}`}
+    >
       <Switch>
-        <PrivateRouteOffline path='/register' component={ Registration } />
-        <PrivateRouteOffline path='/signin' component={ Authorization } />
-        <PrivateRouteOnline path='/calendar' component={ MainPage } />
-        <Route path='/task/:id' render={(props) => <TaskContainer {...props} component={ Task } /> } />\
+        <PrivateRouteOffline path="/register" component={Registration} />
+        <PrivateRouteOffline path="/signin" component={Authorization} />
+        <PrivateRouteOnline path="/calendar" component={MainPage} />
+        <Route
+          path="/task/:id"
+          render={(props) => <TaskContainer {...props} component={Task} />}
+        />
           { redirect || null }
       </Switch>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
