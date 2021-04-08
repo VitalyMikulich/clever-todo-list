@@ -5,6 +5,19 @@ import ToDo from './ToDo/ToDo'
 import styles from './TodaysTasks.module.css'
 import { useStore } from 'react-redux'
 
+const filterTasks = (todos, status) => {
+  const res = todos.reduce((acc, todo) => {
+    if (todo.done) {
+      acc.selected.push(todo)
+    } else {
+      acc.todo.push(todo)
+    }
+    return acc
+  }, {selected: [], todo: []})
+  console.log(res)
+  return status === 'done' ? res.selected : res.todo
+}
+
 const TodaysTasks = ({ currentDate }) => {
   const store = useStore()
   const { userID } = store.getState()
@@ -54,11 +67,32 @@ const TodaysTasks = ({ currentDate }) => {
           {taskCount} Task{taskCount > 1 ? 's' : ''}
         </h2>
       ) : null}
-      {currentTodos
-        ? currentTodos.map((todo, index) => (
-            <ToDo todo={ todo } key={ `${index}` } />
-          ))
-        : null}
+      { currentTodos
+        ? (
+          <div>
+            {filterTasks(currentTodos, 'todo').length ?
+              <div>
+                <h4>To Do:</h4>
+                <div>
+                  {filterTasks(currentTodos, 'todo').map((todo, index) => (
+                    <ToDo todo={ todo } key={ `${index}_todo` } />
+                  ))}
+                </div>
+              </div> 
+            : null}
+            {filterTasks(currentTodos, 'done').length ?
+              <div>
+                <h4>Done:</h4>
+                <div>
+                  {filterTasks(currentTodos, 'done').map((todo, index) => (
+                    <ToDo todo={ todo } key={ `${index}_selected` } />
+                  ))}
+                </div>
+              </div>
+            : null}
+          </div>
+        )
+      : null}
     </div>
   )
 }

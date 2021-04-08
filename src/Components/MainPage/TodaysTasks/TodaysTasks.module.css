@@ -4,8 +4,15 @@
   margin: 20px auto;
 }
 
-.TodaysTasks>h2 {
-  margin-left: 14px;
+.TodaysTasks>h2, .TodaysTasks h4 {
+  text-align: center;
+}
+
+.TodaysTasks>div {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 60px;
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 780px) {
