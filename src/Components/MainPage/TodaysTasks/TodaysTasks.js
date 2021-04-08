@@ -14,7 +14,6 @@ const filterTasks = (todos, status) => {
     }
     return acc
   }, {selected: [], todo: []})
-  console.log(res)
   return status === 'done' ? res.selected : res.todo
 }
 
